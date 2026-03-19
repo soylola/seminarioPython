@@ -1,2 +1,4 @@
-# seminarioPython
-Ejercicios de la materia Seminario de Lenguajes - Python
+# Aldana Laiño
+
+20756/4
+
