@@ -1,5 +1,3 @@
-'''Escriba en un archivo llamado questions.py el siguiente programa en Python.'''
-
 import random
 
 # dic = clave:valor
@@ -24,45 +22,50 @@ if chosen_category in words.keys():
     print(f"Elegiste la categoría: '{chosen_category}'")
     # busca en el diccionario words el valor de la clave "chosen_category" y lo guarda en la variable word_list
     word_list = words[chosen_category]
-    word = random.choice(word_list)
-    print()
+    rounds = int(input("Ingresa la cantidad de rondas que quieras jugar: "))
+    selected_words = random.sample(word_list, rounds)
 
-    while attempts > 0:
-    # Mostrar progreso: letras adivinadas y guiones para las que faltan
-        progress = ""
-        for letter in word:
-            if letter in guessed:
-                progress += letter + " "
-            else:
-                progress += "_ "
-        print(progress)
-    # Verificar si el jugador ya adivinó la palabra completa
-        if "_" not in progress:
-            points += 6
-            print("¡Ganaste!")
-            print(f"Puntos actuales: {points}")
-            break
-        print(f"Intentos restantes: {attempts}")
-        print(f"Letras usadas: {', '.join(guessed)}")
-        print(f"Puntos: {points}")
+    for word in selected_words:
+        print()
+        while attempts > 0:
+        # Mostrar progreso: letras adivinadas y guiones para las que faltan
+            progress = ""
+            for letter in word:
+                if letter in guessed:
+                    progress += letter + " "
+                else:
+                    progress += "_ "
+            print(progress)
+        # Verificar si el jugador ya adivinó la palabra completa
+            if "_" not in progress:
+                points += 6
+                print("¡Ganaste!")
+                print(f"Puntos actuales: {points}")
+                break
+            print(f"Intentos restantes: {attempts}")
+            print(f"Letras usadas: {', '.join(guessed)}")
+            print(f"Puntos: {points}")
 
-        letter = input("Ingresá una letra: ")
-        if len(letter)==1:
-            if letter in guessed:
-                print("Ya usaste esa letra.")
-            elif letter in word:
-                guessed.append(letter)
-                print("¡Bien! Esa letra está en la palabra.")
+            letter = input("Ingresá una letra: ")
+            if len(letter)==1:
+                if letter in guessed:
+                    print("Ya usaste esa letra.")
+                elif letter in word:
+                    guessed.append(letter)
+                    print("¡Bien! Esa letra está en la palabra.")
+                else:
+                    guessed.append(letter)
+                    attempts -= 1
+                    points -= 1
+                    print("Esa letra no está en la palabra.")
+                print()
             else:
-                guessed.append(letter)
-                attempts -= 1
-                points -= 1
-                print("Esa letra no está en la palabra.")
-            print()
+                print('Entrada no válida.')
         else:
-            print('Entrada no válida.')
-    else:
-        points = 0
-        print(f"¡Perdiste! La palabra era: {word}")
+            points = 0
+            print(f"¡Perdiste! La palabra era: {word}")
+        guessed.clear()
+        attempts = 6
+        rounds -= 1
 else:
     print("La categoría elegida no existe.")
